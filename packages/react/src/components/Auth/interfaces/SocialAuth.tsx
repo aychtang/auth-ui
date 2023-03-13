@@ -13,8 +13,8 @@ interface SocialAuthProps {
   onlyThirdPartyProviders?: boolean
   view?: 'sign_in' | 'sign_up'
   i18n?: I18nVariables
-  appearance?: Appearance:
-  providerScopes?: string[];
+  appearance?: Appearance
+  providerScopes?: string
 }
 
 type RedirectTo = undefined | string
@@ -28,7 +28,7 @@ function SocialAuth({
   view = 'sign_in',
   i18n,
   appearance,
-  providerScopes
+  providerScopes,
 }: SocialAuthProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -43,7 +43,8 @@ function SocialAuth({
         redirectTo,
         scopes: providerScopes,
       },
-  })
+    })
+  }
 
   function capitalize(word: string) {
     const lower = word.toLowerCase()
