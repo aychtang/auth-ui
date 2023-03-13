@@ -13,7 +13,8 @@ interface SocialAuthProps {
   onlyThirdPartyProviders?: boolean
   view?: 'sign_in' | 'sign_up'
   i18n?: I18nVariables
-  appearance?: Appearance
+  appearance?: Appearance:
+  providerScopes?: string[];
 }
 
 type RedirectTo = undefined | string
@@ -27,6 +28,7 @@ function SocialAuth({
   view = 'sign_in',
   i18n,
   appearance,
+  providerScopes
 }: SocialAuthProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -37,11 +39,11 @@ function SocialAuth({
     setLoading(true)
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider,
-      options: { redirectTo },
-    })
-    if (error) setError(error.message)
-    setLoading(false)
-  }
+      options: {
+        redirectTo,
+        scopes: providerScopes,
+      },
+  })
 
   function capitalize(word: string) {
     const lower = word.toLowerCase()
